@@ -260,8 +260,8 @@ GitHubTeamID=""
 RepoRootDirectory=$(pwd)
 GitHubWorkflowTemplateDirectory="$RepoRootDirectory/TEMPLATE_REPO/cloudapptemplate/Waters.logging.Template/content"
 GitHubWorkflowTemplateDirectory=${GitHubWorkflowTemplateDirectory//[[:blank:]]/}
-MigratedRepositories="$GenesisRepoRootDirectory/migrated_repositories.txt"
-NotMigratedRepositories="$GenesisRepoRootDirectory/not_migrated_repositories.txt"
+MigratedRepositories="$RepoRootDirectory/migrated_repositories.txt"
+NotMigratedRepositories="$RepoRootDirectory/not_migrated_repositories.txt"
 
 echo -e "${green}"
 echo -e "***********************************************"
@@ -307,7 +307,7 @@ for repository in $repositoyForMigration; do
   cloneGitHubRepository
   validateMigration
   pushGitHubWorkflowTemplates
-  cd "$GenesisRepoRootDirectory" || exitWrapper "Failed to switch to the directory $GenesisRepoRootDirectory, exiting..."
+  cd "$RepoRootDirectory" || exitWrapper "Failed to switch to the directory $RepoRootDirectory, exiting..."
   python -c "from main import set_branch_protection;set_branch_protection(\"$GitHubRepository\",\"$gitBranch\");" || exitWrapper " failed to apply branch protection on main branch, exiting..."
   echo -e "${cyan}\xE2\x9C\x94 branch protection of main branch applied sucessfully..."
   {
