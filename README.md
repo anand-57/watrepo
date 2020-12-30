@@ -1,2 +1,2 @@
-# genesis
+# myrepo
 One click repository setup.
