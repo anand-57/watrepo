@@ -250,15 +250,15 @@ rootDirectory="$HOME/BitBucket2GitHubMigration"
 GitHubOrganization="anand-57"
 gitBranch="main"
 GitHubApiURL="https://api.github.com"
-BitBucketURL="https://bitbucket.org/anandasr123/workspace/projects/TEST"
+BitBucketURL="https://bitbucket.org/anandasr123/waters2/src/master/"
 GitHubURL="https://github.com/$GitHubOrganization"
 
 RepoDescription="initial BitBucket to GitHub migration"
 GitHubTeamID=""
 [ -z "$BitBucketURL" ] && exitWrapper "pass BitBucket hosting url with --bitbucket-url=<bitbucket_url>, exiting..."
 [ -z "$GitHubURL" ] && exitWrapper "pass GitHub hosting url with --github-url=<github_url>, exiting..."
-GenesisRepoRootDirectory=$(pwd)
-GitHubWorkflowTemplateDirectory="$GenesisRepoRootDirectory/TEMPLATE_REPO/cloudapptemplate/Waters.EmptyAS.Template/content"
+RepoRootDirectory=$(pwd)
+GitHubWorkflowTemplateDirectory="$RepoRootDirectory/TEMPLATE_REPO/cloudapptemplate/Waters.EmptyAS.Template/content"
 GitHubWorkflowTemplateDirectory=${GitHubWorkflowTemplateDirectory//[[:blank:]]/}
 MigratedRepositories="$GenesisRepoRootDirectory/migrated_repositories.txt"
 NotMigratedRepositories="$GenesisRepoRootDirectory/not_migrated_repositories.txt"
@@ -286,7 +286,7 @@ repositoyForMigration=$(awk '!/^ *#/ && NF' "$repoFile")
 for repository in $repositoyForMigration; do
   repository=${repository//[[:blank:]]/} 
   GitHubRepository=$(cut -f2 -d ':' -s <<< "$repository")
-  -z "$GitHubRepository" ] && exitWrapper "pass GitHub repository name in $repoFile to proceed with migration, exiting..."
+  [ -z "$GitHubRepository" ] && exitWrapper "pass GitHub repository name in $repoFile to proceed with migration, exiting..."
   repository=$(cut -f1 -d ':' -s <<< "$repository")
   [ -z "$repository" ] && exitWrapper "pass BitBucket repository name in $repoFile to proceed with migration, exiting..."
   repositoryDirectory=${repository%.*}
