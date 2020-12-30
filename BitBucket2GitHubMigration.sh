@@ -286,7 +286,7 @@ repositoyForMigration=$(awk '!/^ *#/ && NF' "$repoFile")
 for repository in $repositoyForMigration; do
   repository=${repository//[[:blank:]]/} 
   GitHubRepository=$(cut -f2 -d ':' -s <<< "$repository")
-  [ -z "$GitHubRepository" ] && exitWrapper "pass GitHub repository name in $repoFile to proceed with migration, exiting..."
+  -z "$GitHubRepository" ] && exitWrapper "pass GitHub repository name in $repoFile to proceed with migration, exiting..."
   repository=$(cut -f1 -d ':' -s <<< "$repository")
   [ -z "$repository" ] && exitWrapper "pass BitBucket repository name in $repoFile to proceed with migration, exiting..."
   repositoryDirectory=${repository%.*}
